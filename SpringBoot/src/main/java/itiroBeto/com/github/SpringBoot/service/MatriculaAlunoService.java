@@ -42,6 +42,10 @@ public class MatriculaAlunoService {
                         ()-> new ResponseStatusException(HttpStatus
                                 .NOT_FOUND, "Matricula não encontrada!"));
 
+        updateStudentGrades(matriculaAluno, atualizarNotasRequest);
+        updateStudentStatus(matriculaAluno);
+
+        matriculaAlunoRepository.save(matriculaAluno);
 
 
     }
@@ -60,7 +64,7 @@ public class MatriculaAlunoService {
         Double nota2 = matriculaAluno.getNota2();
 
 
-        if (nota1 != null && nota2 != null){
+        if(nota1 != null &&  nota2 != null){
             double average = (nota1 + nota2) / 2;
 
 
