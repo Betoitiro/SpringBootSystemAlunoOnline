@@ -24,7 +24,7 @@ public class MatriculaAluno {
 
     @ManyToOne
     @JoinColumn(name = "diciplina_id")
-    Diciplina diciplina;
+    Disciplina disciplina;
 
     @Enumerated(EnumType.STRING)
     private MatriculaAlunoStatusEnum status;
@@ -61,12 +61,12 @@ public class MatriculaAluno {
         this.aluno = aluno;
     }
 
-    public Diciplina getDiciplina() {
-        return diciplina;
+    public Disciplina getDiciplina() {
+        return disciplina;
     }
 
-    public void setDiciplina(Diciplina diciplina) {
-        this.diciplina = diciplina;
+    public void setDiciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public MatriculaAlunoStatusEnum getStatus() {

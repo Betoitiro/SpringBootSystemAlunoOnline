@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Entity
-public class Diciplina implements Serializable {
+public class Disciplina implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

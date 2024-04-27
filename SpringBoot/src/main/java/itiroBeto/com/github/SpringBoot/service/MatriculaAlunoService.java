@@ -1,6 +1,7 @@
 package itiroBeto.com.github.SpringBoot.service;
 
 import itiroBeto.com.github.SpringBoot.dtos.AtualizarNotasRequest;
+import itiroBeto.com.github.SpringBoot.dtos.HistoryStudentResponse;
 import itiroBeto.com.github.SpringBoot.enums.MatriculaAlunoStatusEnum;
 import itiroBeto.com.github.SpringBoot.model.MatriculaAluno;
 import itiroBeto.com.github.SpringBoot.repository.MatriculaAlunoRepository;
@@ -77,5 +78,30 @@ public class MatriculaAlunoService {
         }
 
     }
+
+    public void updatedStatusToBreak(Long matriculaId){
+        MatriculaAluno matriculaAluno =
+                matriculaAlunoRepository.findById(matriculaId).
+                        orElseThrow(()->
+                                new ResponseStatusException(HttpStatus.NOT_FOUND,"Matricula não encontrada"));
+
+        if (!MatriculaAlunoStatusEnum.MATRICULADO .equals(matriculaAluno.getStatus())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Só possivel trancar uma matricula com o Status matriculado");
+        }
+        changeStatus(matriculaAluno, MatriculaAlunoStatusEnum.TRANCADO);
+    }
+
+    public void changeStatus(MatriculaAluno matriculaAluno, MatriculaAlunoStatusEnum matriculaAlunoStatusEnum){
+        matriculaAluno.setStatus(matriculaAlunoStatusEnum);
+        matriculaAlunoRepository.save(matriculaAluno);
+    }
+
+    /*
+    public HistoryStudentResponse getHistoryFromAluno(Long aluno){
+
+    }
+    
+     */
 
 }

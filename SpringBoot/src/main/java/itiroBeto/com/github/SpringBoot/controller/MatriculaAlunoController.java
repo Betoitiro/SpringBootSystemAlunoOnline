@@ -1,5 +1,6 @@
 package itiroBeto.com.github.SpringBoot.controller;
 
+import itiroBeto.com.github.SpringBoot.dtos.AtualizarNotasRequest;
 import itiroBeto.com.github.SpringBoot.model.MatriculaAluno;
 import itiroBeto.com.github.SpringBoot.repository.MatriculaAlunoRepository;
 import itiroBeto.com.github.SpringBoot.service.MatriculaAlunoService;
@@ -28,4 +29,17 @@ public class MatriculaAlunoController {
         return matriculaAlunoService.findALl();
     }
 
+    //atualizar por partes
+    @PatchMapping("/updatedGrades/{matriculaAlunoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateGrades(@RequestBody AtualizarNotasRequest atualizarNotasRequest,
+                             @PathVariable Long matriculaAlunoId){
+        matriculaAlunoService.updateGrade(matriculaAlunoId, atualizarNotasRequest);
+    }
+
+    @PatchMapping("/updatedStatusToBreak/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void changeStateToBreak(@PathVariable Long id){
+        matriculaAlunoService.updatedStatusToBreak(id);
+    }
 }
