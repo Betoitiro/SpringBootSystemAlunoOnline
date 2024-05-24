@@ -1,6 +1,7 @@
 package itiroBeto.com.github.SpringBoot.controller;
 
 import itiroBeto.com.github.SpringBoot.dtos.AtualizarNotasRequest;
+import itiroBeto.com.github.SpringBoot.dtos.HistoryStudentResponse;
 import itiroBeto.com.github.SpringBoot.model.MatriculaAluno;
 import itiroBeto.com.github.SpringBoot.repository.MatriculaAlunoRepository;
 import itiroBeto.com.github.SpringBoot.service.MatriculaAlunoService;
@@ -41,5 +42,11 @@ public class MatriculaAlunoController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void changeStateToBreak(@PathVariable Long id){
         matriculaAlunoService.updatedStatusToBreak(id);
+    }
+
+    @GetMapping("/academic-transcript/{alunoId}")
+    @ResponseStatus(HttpStatus.OK) //200 ok
+    public HistoryStudentResponse getAcademicTranscript(@PathVariable Long alunoId){
+        return matriculaAlunoService.getAcademicTranscript(alunoId);
     }
 }

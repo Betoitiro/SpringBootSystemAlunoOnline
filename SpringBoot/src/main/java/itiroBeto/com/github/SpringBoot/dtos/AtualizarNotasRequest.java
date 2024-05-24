@@ -4,22 +4,23 @@ package itiroBeto.com.github.SpringBoot.dtos;
 
 //Lombok data n funciona
 public class AtualizarNotasRequest {
-    private Double nota1;
-    private Double nota2;
+    private Double grade1;
+    private Double grade2;
 
-    public Double getNota1() {
-        return nota1;
+
+    public Double getGrade1() {
+        return grade1;
     }
 
-    public void setNota1(Double nota1) {
-        this.nota1 = nota1;
+    public void setGrade1(Double grade1) {
+        this.grade1 = grade1;
     }
 
-    public Double getNota2() {
-        return nota2;
+    public Double getGrade2() {
+        return grade2;
     }
 
-    public void setNota2(Double nota2) {
-        this.nota2 = nota2;
+    public void setGrade2(Double grade2) {
+        this.grade2 = grade2;
     }
 }

@@ -2,6 +2,7 @@ package itiroBeto.com.github.SpringBoot.service;
 
 import itiroBeto.com.github.SpringBoot.dtos.AtualizarNotasRequest;
 import itiroBeto.com.github.SpringBoot.dtos.HistoryStudentResponse;
+import itiroBeto.com.github.SpringBoot.dtos.StudentSubjectResponse;
 import itiroBeto.com.github.SpringBoot.enums.MatriculaAlunoStatusEnum;
 import itiroBeto.com.github.SpringBoot.model.MatriculaAluno;
 import itiroBeto.com.github.SpringBoot.repository.MatriculaAlunoRepository;
@@ -10,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MatriculaAlunoService {
@@ -52,21 +53,21 @@ public class MatriculaAlunoService {
     }
 
     public void updateStudentGrades(MatriculaAluno matriculaAluno, AtualizarNotasRequest atualizarNotasRequest){
-        if (atualizarNotasRequest.getNota1() != null){
-            matriculaAluno.setNota1(atualizarNotasRequest.getNota1());
+        if (atualizarNotasRequest.getGrade1() != null){
+            matriculaAluno.setGrade1(atualizarNotasRequest.getGrade1());
         }
-        if (atualizarNotasRequest.getNota2()!= null) {
-            matriculaAluno.setNota2(atualizarNotasRequest.getNota2());
+        if (atualizarNotasRequest.getGrade2()!= null) {
+            matriculaAluno.setGrade2(atualizarNotasRequest.getGrade2());
         }
     }
 
     public void updateStudentStatus(MatriculaAluno matriculaAluno){
-        Double nota1 = matriculaAluno.getNota1();
-        Double nota2 = matriculaAluno.getNota2();
+        Double grade1 = matriculaAluno.getGrade1();
+        Double grade2 = matriculaAluno.getGrade2();
 
 
-        if(nota1 != null &&  nota2 != null){
-            double average = (nota1 + nota2) / 2;
+        if(grade1 != null &&  grade2 != null){
+            double average = (grade1 + grade2) / 2;
 
 
             //if como operador ternario
@@ -97,11 +98,45 @@ public class MatriculaAlunoService {
         matriculaAlunoRepository.save(matriculaAluno);
     }
 
-    /*
-    public HistoryStudentResponse getHistoryFromAluno(Long aluno){
 
+    public HistoryStudentResponse getAcademicTranscript(Long alunoId) {
+        List<MatriculaAluno> matriculasDoAluno = matriculaAlunoRepository.findByStudentId(alunoId);
+
+        if(matriculasDoAluno.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Esse aluno não possui matrículas");
+        }
+
+        HistoryStudentResponse historico = new HistoryStudentResponse();
+        historico.setStudentName(matriculasDoAluno.get(0).getStudent().getName());
+        historico.setStudentEmail(matriculasDoAluno.get(0).getStudent().getEmail());
+
+        List<StudentSubjectResponse> disciplinasList = new ArrayList<>();
+
+        for (MatriculaAluno matricula : matriculasDoAluno) {
+            StudentSubjectResponse disciplinasAlunoResponse = new StudentSubjectResponse();
+            disciplinasAlunoResponse.setSubjectName(matricula.getSubject().getName());
+            disciplinasAlunoResponse.setProfessor(matricula.getSubject().getProfessor().getName());
+            disciplinasAlunoResponse.setGrade1(matricula.getGrade1());
+            disciplinasAlunoResponse.setGrade2(matricula.getGrade2());
+
+            // não quero isso nese método, MAS eu (prof) vou fazer
+            if(matricula.getGrade1() != null && matricula.getGrade2() != null) {
+                disciplinasAlunoResponse.setAverage((matricula.getGrade1() + matricula.getGrade2()) / 2.0);
+            } else {
+                disciplinasAlunoResponse.setAverage(null);
+            }
+
+            disciplinasAlunoResponse.setStatus(matricula.getStatus());
+            disciplinasList.add(disciplinasAlunoResponse);
+        }
+
+        historico.setStudentSubjectsResponseList(disciplinasList);
+
+        return historico;
     }
-    
-     */
+
+
+
+
 
 }

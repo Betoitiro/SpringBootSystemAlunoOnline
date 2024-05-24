@@ -11,20 +11,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class MatriculaAluno {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double nota1;
-    private double nota2;
+
+    private Double grade1;
+
+    private Double grade2;
 
     @ManyToOne
-    @JoinColumn(name = "aluno_id")
-    Aluno aluno;
+    @JoinColumn(name = "student_id")
+    private Aluno student;
 
     @ManyToOne
-    @JoinColumn(name = "diciplina_id")
-    Disciplina disciplina;
+    @JoinColumn(name = "subject_id")
+    private Disciplina subject;
 
     @Enumerated(EnumType.STRING)
     private MatriculaAlunoStatusEnum status;
@@ -37,36 +38,36 @@ public class MatriculaAluno {
         this.id = id;
     }
 
-    public double getNota1() {
-        return nota1;
+    public Double getGrade1() {
+        return grade1;
     }
 
-    public void setNota1(double nota1) {
-        this.nota1 = nota1;
+    public void setGrade1(Double grade1) {
+        this.grade1 = grade1;
     }
 
-    public double getNota2() {
-        return nota2;
+    public Double getGrade2() {
+        return grade2;
     }
 
-    public void setNota2(double nota2) {
-        this.nota2 = nota2;
+    public void setGrade2(Double grade2) {
+        this.grade2 = grade2;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public Aluno getStudent() {
+        return student;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setStudent(Aluno student) {
+        this.student = student;
     }
 
-    public Disciplina getDiciplina() {
-        return disciplina;
+    public Disciplina getSubject() {
+        return subject;
     }
 
-    public void setDiciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+    public void setSubject(Disciplina subject) {
+        this.subject = subject;
     }
 
     public MatriculaAlunoStatusEnum getStatus() {
