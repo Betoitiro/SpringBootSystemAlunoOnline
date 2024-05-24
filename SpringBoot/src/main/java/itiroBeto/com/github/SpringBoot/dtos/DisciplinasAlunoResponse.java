@@ -2,13 +2,12 @@ package itiroBeto.com.github.SpringBoot.dtos;
 
 import itiroBeto.com.github.SpringBoot.enums.MatriculaAlunoStatusEnum;
 import lombok.Data;
-import org.springframework.stereotype.Service;
 
 
 @Data
 
 
-public class StudentSubjectResponse {
+public class DisciplinasAlunoResponse {
     private String subjectName;
     private String professor;
     private Double grade1;

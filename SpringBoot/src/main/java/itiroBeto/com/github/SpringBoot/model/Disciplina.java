@@ -18,7 +18,7 @@ public class Disciplina implements Serializable {
 
     private String name;
 
-    @ManyToOne //muitas diciplinas --> um professor
+    @ManyToOne
     @JoinColumn(name = "professor_id")
     private Professor professor;
 

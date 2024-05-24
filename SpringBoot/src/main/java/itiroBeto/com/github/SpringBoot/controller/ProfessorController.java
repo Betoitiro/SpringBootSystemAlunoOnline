@@ -49,6 +49,10 @@ public class ProfessorController {
         professorService.deleteProfessorById(id);
     }
 
-
+    @DeleteMapping("/id")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id){
+        professorService.deleteProfessorById(id);
+    }
 
 }

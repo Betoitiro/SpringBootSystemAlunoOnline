@@ -5,12 +5,12 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class HistoryStudentResponse {
+public class HistoricoAlunoResponse {
     private String studentName;
 
     private String studentEmail;
 
-    private List<StudentSubjectResponse> studentSubjectsResponseList;
+    private List<DisciplinasAlunoResponse> studentSubjectsResponseList;
 
     public String getStudentName() {
         return studentName;
@@ -28,11 +28,11 @@ public class HistoryStudentResponse {
         this.studentEmail = studentEmail;
     }
 
-    public List<StudentSubjectResponse> getStudentSubjectsResponseList() {
+    public List<DisciplinasAlunoResponse> getStudentSubjectsResponseList() {
         return studentSubjectsResponseList;
     }
 
-    public void setStudentSubjectsResponseList(List<StudentSubjectResponse> studentSubjectsResponseList) {
+    public void setStudentSubjectsResponseList(List<DisciplinasAlunoResponse> studentSubjectsResponseList) {
         this.studentSubjectsResponseList = studentSubjectsResponseList;
     }
 }
