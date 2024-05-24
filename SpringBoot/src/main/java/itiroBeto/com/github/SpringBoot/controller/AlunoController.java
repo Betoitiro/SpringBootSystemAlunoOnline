@@ -1,5 +1,6 @@
 package itiroBeto.com.github.SpringBoot.controller;
 
+import itiroBeto.com.github.SpringBoot.dtos.CriarAlunoRequest;
 import itiroBeto.com.github.SpringBoot.model.Aluno;
 import itiroBeto.com.github.SpringBoot.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ public class AlunoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) //converte o 201 (conexão bem sucedida) em create
-    public void create(@RequestBody Aluno aluno) //converte o json em objeto java (aluno)
+    public void create(@RequestBody CriarAlunoRequest criarAlunoRequest) //converte o json em objeto java (aluno)
     {
 
-        alunoService.create(aluno); //aqui o objeto aluno java, não esta mais como json
+        alunoService.create(criarAlunoRequest);
     }
 
     @GetMapping("/all")

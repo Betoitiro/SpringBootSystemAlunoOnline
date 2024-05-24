@@ -7,8 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+/***
+ * NÃO FUNCIONA
+ *
+ *@AllArgsConstructor
+ * @NoArgsConstructo
+ */
+
 @Data
 public class MatriculaAluno {
     @Id
@@ -29,6 +34,18 @@ public class MatriculaAluno {
 
     @Enumerated(EnumType.STRING)
     private MatriculaAlunoStatusEnum status;
+
+    public MatriculaAluno() {
+    }
+
+    public MatriculaAluno(Long id, Double grade1, Double grade2, Aluno student, Disciplina subject, MatriculaAlunoStatusEnum status) {
+        this.id = id;
+        this.grade1 = grade1;
+        this.grade2 = grade2;
+        this.student = student;
+        this.subject = subject;
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

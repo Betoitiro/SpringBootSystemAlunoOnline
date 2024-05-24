@@ -1,7 +1,11 @@
 package itiroBeto.com.github.SpringBoot.service;
 
+import itiroBeto.com.github.SpringBoot.dtos.CriarAlunoRequest;
 import  itiroBeto.com.github.SpringBoot.model.Aluno;
+import itiroBeto.com.github.SpringBoot.model.Curso;
 import  itiroBeto.com.github.SpringBoot.repository.AlunoRepository;
+import itiroBeto.com.github.SpringBoot.repository.CursoResitory;
+import itiroBeto.com.github.SpringBoot.repository.FinanceiroAlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,16 +17,35 @@ import java.util.Optional;
 @Service
 public class  AlunoService {
 
-    //injetando!
     @Autowired
-    //criando uma variavel com alunorepository
-            AlunoRepository alunoRepository;
-    //tudo que estiver dentro de alunorepository vai vir aqui pra denro
+    AlunoRepository alunoRepository;
+
+    @Autowired
+    FinanceiroAlunoRepository financeiroAlunoRepository;
+
+    @Autowired
+    CursoResitory cursoResitory;
+
+    public void create(CriarAlunoRequest criarAlunoRequest){
+        Curso curso = cursoResitory.findById(criarAlunoRequest.getCourseId())
+                .orElseThrow(()->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,"curso não encontrado"));
+
+        Aluno aLunoSaved = alunoRepository.save(
+                new Aluno(
+                        null,
+                        criarAlunoRequest.getName(),
+                        criarAlunoRequest.getEmail(),
+                        curso
+                )
+        );
 
 
-    public void create(Aluno aluno){
-        alunoRepository.save(aluno);
+
     }
+
+
+
 
     public List<Aluno> findAll(){
         return alunoRepository.findAll();
@@ -44,7 +67,6 @@ public class  AlunoService {
 
         alunoUpdated.setName(aluno.getName());
         alunoUpdated.setEmail(aluno.getEmail());
-        alunoUpdated.setCourse(aluno.getCourse());
 
         alunoRepository.save(alunoUpdated);
     }

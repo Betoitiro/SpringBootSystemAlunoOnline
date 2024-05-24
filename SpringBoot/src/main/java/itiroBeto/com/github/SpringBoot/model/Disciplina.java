@@ -7,8 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
-@NoArgsConstructor
+/***
+ * NÃO FUNCIONA
+ *
+ *@AllArgsConstructor
+ * @NoArgsConstructo
+ */
+
 @Data
 @Entity
 public class Disciplina implements Serializable {
@@ -21,6 +26,15 @@ public class Disciplina implements Serializable {
     @ManyToOne
     @JoinColumn(name = "professor_id")
     private Professor professor;
+
+    public Disciplina() {
+    }
+
+    public Disciplina(Long id, String name, Professor professor) {
+        this.id = id;
+        this.name = name;
+        this.professor = professor;
+    }
 
     public Long getId() {
         return id;

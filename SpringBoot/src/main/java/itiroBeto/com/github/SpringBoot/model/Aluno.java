@@ -1,9 +1,6 @@
 package itiroBeto.com.github.SpringBoot.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +9,14 @@ import java.io.Serializable;
 //Estrutura do objeto
 
 //Construtores
-@AllArgsConstructor
-@NoArgsConstructor
+
+/**
+ * tirei o
+ * @AllArgsConstructor
+ * @NoArgsConstructor
+ *
+ * pois estava dando erro
+ */
 @Data//Faz os getrs and setrs automaticamente, graças ao lombok
 @Entity//faz com que o spring veja a classe como entidade
 
@@ -23,8 +26,21 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
     private String name;
-    private String course;
     private String email;
+
+    @OneToOne
+    @JoinColumn(name = "couse_id")
+    private Curso course;
+
+    public Aluno() {
+    }
+
+    public Aluno(Long id, String name, String email, Curso course) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.course = course;
+    }
 
     public String getName() {
         return name;
@@ -41,11 +57,5 @@ public class Aluno implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getCourse() {
-        return course;
-    }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
 }
