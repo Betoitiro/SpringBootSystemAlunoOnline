@@ -1,8 +1,10 @@
 package itiroBeto.com.github.SpringBoot.service;
 
 import itiroBeto.com.github.SpringBoot.dtos.CriarAlunoRequest;
+import itiroBeto.com.github.SpringBoot.enums.FinanceiroStatusEnum;
 import  itiroBeto.com.github.SpringBoot.model.Aluno;
 import itiroBeto.com.github.SpringBoot.model.Curso;
+import itiroBeto.com.github.SpringBoot.model.FinanceiroAluno;
 import  itiroBeto.com.github.SpringBoot.repository.AlunoRepository;
 import itiroBeto.com.github.SpringBoot.repository.CursoResitory;
 import itiroBeto.com.github.SpringBoot.repository.FinanceiroAlunoRepository;
@@ -40,9 +42,11 @@ public class  AlunoService {
                 )
         );
 
-
+        createFinanceiroInformation(aLunoSaved, criarAlunoRequest);
 
     }
+
+
 
 
 
@@ -73,5 +77,17 @@ public class  AlunoService {
 
     public void deleteById(Long id){
         alunoRepository.deleteById(id);
+    }
+
+    public void createFinanceiroInformation(Aluno aluno, CriarAlunoRequest criarAlunoRequest){
+        FinanceiroAluno financeiroAluno = new FinanceiroAluno(
+                null,
+                aluno,
+                criarAlunoRequest.getDiscount(),
+                criarAlunoRequest.getDueDate(),
+                //como o aluno acaba de ser criado, o seu status fica em dia
+                FinanceiroStatusEnum.EM_DIA
+        );
+        financeiroAlunoRepository.save(financeiroAluno);
     }
 }
